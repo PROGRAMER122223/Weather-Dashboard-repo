@@ -42,6 +42,6 @@ The following image shows the web application's appearance and functionality:
   [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
 
 ##
- 1  URL of diployed application
+ 1  [URL of diployed application](https://programer122223.github.io/Weather-Dashboard-repo/)
 
- 2  URL of github repository
+ 2  [URL of github repository](https://github.com/PROGRAMER122223/Weather-Dashboard-repo.git)
