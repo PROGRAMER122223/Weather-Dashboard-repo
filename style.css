@@ -9,13 +9,26 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
        
 }
-h3{
+.jumbotron{
+    background: linear-gradient(to right, rgb(97, 134, 165) 50%, rgb(53, 88, 151) 50%);
+ 
+ }
+
+
+h2{
     font-weight: bold;
+     color:white;
 }
 .forecast{
     
     font-size: 0.9em;
+    background-color: darkslategrey;
+    
+    
 }
+
+    
+
 span{
     font-size: 1em;
 }
