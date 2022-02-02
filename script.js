@@ -102,28 +102,30 @@ function forecast(cityid){
     //var dayOver= false;
     var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&appid="+api_key;
    
-    /*fetch(queryforcastURL)
+    fetch(queryforcastURL)
     .then (response=>response.json())
     .then(data=>{
-        console.log(data+"helooo");*/
+        console.log(data+"helooo");
     
-        $.ajax({
+       /* $.ajax({
             url:queryforcastURL,
             method:"GET"
         }).then(function(response){
-        console.log(response);
+        console.log(response);*/
              for(i=0;i<5;i++){
                   var date =new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
                   var iconcode= data.list[((i+1)*8)-1].weather[0].icon;
                   var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
                   var tempK= data.list[((i+1)*8)-1].main.temp;
                    var tempF=(((tempK-273.5)*1.80)+32).toFixed(2);
-                
+                   
+                    var windW=(data.list[i].wind.speed*2.237).toFixed(1);
                    var humidity= data.list[((i+1)*8)-1].main.humidity;
 
                    $("#fDate"+i).html(date);
                    $("#fImg"+i).html("<img src="+iconurl+">");
                    $("#fTemp"+i).html(tempF+"&#8457");
+                   $("#fWind"+i).html(windW);
                    $("#fHumidity"+i).html(humidity+"%");
                
         
