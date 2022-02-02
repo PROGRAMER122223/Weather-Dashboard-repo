@@ -21,9 +21,10 @@ function find(c){
 }
 //SET the API key
 var api_key="473a19f6022648369699b1dffb273802";
-;
+
 
 function displayWeather(event){
+
     event.preventDefault();
     if(cityName.val().trim()!==""){
         city=cityName.val().trim();
@@ -33,33 +34,39 @@ function displayWeather(event){
 function currentWeather(city){
     //build URL to get data from server
 var queryURL="https://api.openweathermap.org/data/2.5/weather?q=" +city + "&APPID=" +api_key;
-   $.ajax({
+  /* $.ajax({
        url:queryURL,
        method:"GET"
-   }).then(function(response){
-            console.log(response);
-            var weathericon= response.weather[0].icon;
+   }).then(function(response){*/
+    fetch(queryURL)
+    .then (response=>response.json())
+    .then(data=>{
+        console.log(data);
+    
+            
+            var weathericon= data.weather[0].icon;
              var iconurl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
-             var date=new Date(response.dt*1000).toLocaleDateString();
-             $(currentCity).html(response.name +"("+date+")" + "<img src="+iconurl+">");
+             var date=new Date(data.dt*1000).toLocaleDateString();
+             $(currentCity).html(data.name +"("+date+")" + "<img src="+iconurl+">");
              //temperature to F
-             var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+             var tempF = (data.main.temp - 273.15) * 1.80 + 32;
              $(currentTemperature).html((tempF).toFixed(2)+"&#8457");
              //wind speed in MPH
             
-             var windsmph=(response.wind.speed*2.237).toFixed(1);
+             var windsmph=(data.wind.speed*2.237).toFixed(1);
              $(currentWind).html(windsmph+"MPH");
              console.log(currentWind+"wind");
              //humidity
              
-             $(currentHumidity).html(response.main.humidity+"%");
-             UVIndex(response.coord.lon,response.coord.lat);
+             $(currentHumidity).html(data.main.humidity+"%");
+             UVIndex(data.coord.lon,data.coord.lat);
         
         
+
+
 
 
 });
-
 }
 
 function UVIndex(ln,lt){
@@ -72,6 +79,43 @@ function UVIndex(ln,lt){
                 $(currentUvindex).html(response.value);
             });
 }
+
+//displaying 5 days forecast of the city
+/*function forecast(cityid){
+    var dayOver= false;
+    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&appid="+api_key;
+    fetch(queryforcastURL)
+    .then(function (response) {
+      if (response.ok) {
+        //console.log(response);
+        response.json().then(function (data) {
+          //console.log(data);
+              for(i=0;i<5;i++){
+                  var date=new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
+                  var iconcode= data.list[((i+1)*8)-1].weather[0].icon;
+                  var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
+                  var tempK= data.list[((i+1)*8)-1].main.temp;
+                   var tempF=(((tempK-273.5)*1.80)+32).toFixed(2);
+                   var windW=
+                   var humidity= data.list[((i+1)*8)-1].main.humidity;
+        
+              }
+
+
+          
+        });
+      } else {
+        alert('Error: ' + response.statusText);
+      }
+    })
+    .catch(function (error) {
+      alert('Unable to connect to url');
+    });
+};
+
+*/
+
+
 
 
 $(".btn").on("click",displayWeather);
