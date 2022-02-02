@@ -62,6 +62,7 @@ var queryURL="https://api.openweathermap.org/data/2.5/weather?q=" +city + "&APPI
              
              $(currentHumidity).html(data.main.humidity+"%");
              UVIndex(data.coord.lon,data.coord.lat);
+
              forecast(data.id);
         if(data.cod==200){
             city1=JSON.parse(localStorage.getItem("cityName"));
@@ -92,7 +93,18 @@ function UVIndex(ln,lt){
     var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid="+ api_key +"&lat="+lt+"&lon="+ln;
   fetch(uvqURL)
   .then (response=>response.json())
-  .then(data=>{$(currentUvindex).html(data.value);});
+  .then(data=>{$(currentUvindex).html(data.value);
+    if(data.value<3){
+       
+        $(".py-2").css("background-color", "green");
+     }else if((data.value>=3) && (data.value<5)){
+        $(".py-2").css("background-color", "orange");
+     }else if(data.value>=5){
+        $(".py-2").css("background-color", "red");
+     }
+
+     
+});
   }
     
 
@@ -105,7 +117,7 @@ function forecast(cityid){
     fetch(queryforcastURL)
     .then (response=>response.json())
     .then(data=>{
-        console.log(data+"helooo");
+        
     
              for(i=0;i<5;i++){
                   var date =new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
