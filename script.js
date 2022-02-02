@@ -61,24 +61,18 @@ var queryURL="https://api.openweathermap.org/data/2.5/weather?q=" +city + "&APPI
              $(currentHumidity).html(data.main.humidity+"%");
              UVIndex(data.coord.lon,data.coord.lat);
         
-        
-
-
-
-
 });
 }
 
 function UVIndex(ln,lt){
     //lets build the url for uvindex.
     var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid="+ api_key +"&lat="+lt+"&lon="+ln;
-    $.ajax({
-            url:uvqURL,
-            method:"GET"
-            }).then(function(response){
-                $(currentUvindex).html(response.value);
-            });
-}
+  fetch(uvqURL)
+  .then (response=>response.json())
+  .then(data=>{$(currentUvindex).html(data.value);});
+  }
+    
+
 
 //displaying 5 days forecast of the city
 /*function forecast(cityid){
