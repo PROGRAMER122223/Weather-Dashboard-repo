@@ -132,7 +132,7 @@ function forecast(cityid){
                    $("#fDate"+i).html(date);
                    $("#fImg"+i).html("<img src="+iconurl+">");
                    $("#fTemp"+i).html(tempF+"&#8457");
-                   $("#fWind"+i).html(windW);
+                   $("#fWind"+i).html(windW+"mps");
                    $("#fHumidity"+i).html(humidity+"%");
                
         
