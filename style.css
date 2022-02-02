@@ -23,12 +23,21 @@ h2{
     
     font-size: 0.9em;
     background-color: darkslategrey;
-    
+ 
     
 }
-
-    
-
+/*.py-2{
+    background-color:green
+}
+ .favourable{
+     background-color: green;
+ }   
+.moderate{
+    background-color: orange;
+}
+.severe{
+    background-color: red;
+}*/
 span{
     font-size: 1em;
 }
