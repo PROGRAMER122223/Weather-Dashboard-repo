@@ -107,11 +107,6 @@ function forecast(cityid){
     .then(data=>{
         console.log(data+"helooo");
     
-       /* $.ajax({
-            url:queryforcastURL,
-            method:"GET"
-        }).then(function(response){
-        console.log(response);*/
              for(i=0;i<5;i++){
                   var date =new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
                   var iconcode= data.list[((i+1)*8)-1].weather[0].icon;
@@ -130,10 +125,44 @@ function forecast(cityid){
                
         
               }
-
-
-          
+         
         });
       } 
 
+      // display the past search again when the list group item is clicked in search history
+      function invokePastSearch(event){
+        var liEl=event.target;
+        if (event.target.matches("li")){
+            city=liEl.textContent.trim();
+            currentWeather(city);
+        }
+    
+    }
+
+    // render function
+function loadlastCity(){
+    $("ul").empty();
+    var city1 = JSON.parse(localStorage.getItem("cityName"));
+    if(city1!==null){
+        city1=JSON.parse(localStorage.getItem("cityName"));
+        for(i=0; i<city1.length;i++){
+            addToList(city1[i]);
+        }
+        city=city1[i-1];
+        currentWeather(city);
+    }
+
+}
+//Daynamically add the passed city on the search history
+function addToList(c){
+    var listEl= $("<li>"+c.toUpperCase()+"</li>");
+    $(listEl).attr("class","list-group-item");
+    $(listEl).attr("data-value",c.toUpperCase());
+    $(".list-group").append(listEl);
+}
+
+    
+
 $(".btn").on("click",displayWeather);
+$(document).on("click",invokePastSearch);
+$(window).on("load",loadlastCity);
